@@ -1,65 +1,49 @@
-# `component-name`
+# `mastodon-post`
 
 A Web Component for…
 
-**[Demo](https://daviddarnes.github.io/component-template/demo.html)** | **[Further reading](https://darn.es/web-component-github-starter-template/)**
+**[Demo](https://daviddarnes.github.io/component-template/demo.html)**
 
 ## Examples
 
 General usage example:
 
 ```html
-<script type="module" src="component-name.js"></script>
+<script type="module" src="mastodon-post.js"></script>
 
-<component-name>
-  <button>Button</button>
-</component-name>
+<mastodon-post>
+  <a href="https://mastodon.design/@DavidDarnes/109824258017750161">Discuss on Mastodon</a>
+</mastodon-post>
 ```
 
-Example using a fallback method:
+Example using a custom template:
 
 ```html
-<script type="module" src="component-name.js"></script>
+<script type="module" src="mastodon-post.js"></script>
 
-<component-name>
-  <button>Button</button>
-  <a href="#">Anchor</a>
-</component-name>
-<style>
-  component-name:not(:defined) button,
-  component-name:defined a {
-    display: none;
-  }
-</style>
-```
+<template id="mastodon-post-template">
+  <blockquote data-key="content"></blockquote>
+</template>
 
-Example using options or additional fallback method:
-
-```html
-<script type="module" src="component-name.js"></script>
-
-<component-name attribute="value">
-  <button>Button</button>
-</component-name>
-<style>
-  component-name[attribute="value"] {
-    outline: 1px solid red;
-  }
-</style>
+<mastodon-post>
+  <a href="https://mastodon.design/@DavidDarnes/109824258017750161">Discuss on Mastodon</a>
+</mastodon-post>
 ```
 
 ## Features
 
 This Web Component allows you to:
 
-- Check for…
+- Turn a regular Mastodon post link into a quoted Mastodon post
+- Surface the post metadata alongside the post, e.g. reply count, reblog count, favourite count
+- Use a custom template for all instances of the component on the page using a `data-key="name"` data attributes
 
 ## Installation
 
 You have a few options (choose one of these):
 
-1. Install via [npm](https://www.npmjs.com/package/@daviddarnes/component-name): `npm install @daviddarnes/component-name`
-1. [Download the source manually from GitHub](https://github.com/daviddarnes/component-name/releases) into your project.
+1. Install via [npm](https://www.npmjs.com/package/@daviddarnes/mastodon-post): `npm install @daviddarnes/mastodon-post`
+1. [Download the source manually from GitHub](https://github.com/daviddarnes/mastodon-post/releases) into your project.
 1. Skip this step and use the script directly via a 3rd party CDN (not recommended for production use)
 
 ### Usage
@@ -68,14 +52,14 @@ Make sure you include the `<script>` in your project (choose one of these):
 
 ```html
 <!-- Host yourself -->
-<script type="module" src="component-name.js"></script>
+<script type="module" src="mastodon-post.js"></script>
 ```
 
 ```html
 <!-- 3rd party CDN, not recommended for production use -->
 <script
   type="module"
-  src="https://www.unpkg.com/@daviddarnes/component-name@1.0.0/component-name.js"
+  src="https://www.unpkg.com/@daviddarnes/mastodon-post@1.0.0/mastodon-post.js"
 ></script>
 ```
 
@@ -83,9 +67,13 @@ Make sure you include the `<script>` in your project (choose one of these):
 <!-- 3rd party CDN, not recommended for production use -->
 <script
   type="module"
-  src="https://esm.sh/@daviddarnes/component-name@1.0.0"
+  src="https://esm.sh/@daviddarnes/mastodon-post@1.0.0"
 ></script>
 ```
+
+### Using a custom template
+
+TBC
 
 ## Credit
 
