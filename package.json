@@ -1,7 +1,7 @@
 {
   "name": "@daviddarnes/mastodon-post",
   "version": "1.0.0",
-  "description": "A Web Component for…",
+  "description": "A Web Component to display Mastodon posts and their metadata",
   "main": "mastodon-post.js",
   "scripts": {
     "start": "npx http-server ."
