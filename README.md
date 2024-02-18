@@ -1,6 +1,6 @@
 # `mastodon-post`
 
-A Web Component for…
+A Web Component to display Mastodon posts and their metadata.
 
 **[Demo](https://daviddarnes.github.io/component-template/demo.html)**
 
