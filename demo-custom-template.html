@@ -11,42 +11,16 @@
         font-family: system-ui;
       }
 
-      mastodon-post:not(:defined) figure,
-      mastodon-post:defined > a {
-        display: none;
-      }
-
-      mastodon-post {
-        display: block;
-        max-inline-size: max-content;
-      }
-
-      mastodon-post blockquote {
-        margin: 0;
-        border-inline-start: 2px solid currentColor;
-        padding-inline-start: 1rem;
-      }
-
-      mastodon-post figure {
-        margin: 0;
-      }
-
-      mastodon-post figcaption,
       mastodon-post dl {
-        margin: 0;
         display: flex;
-        flex-wrap: wrap;
-        align-items: end;
         gap: 1rem;
       }
 
       mastodon-post dl {
-        justify-content: end;
         gap: 0.25rem;
-        margin-inline-start: auto;
       }
 
-      mastodon-post dt {
+      mastodon-post dt ~ dt {
         margin-inline-start: 1rem;
       }
 
@@ -58,7 +32,18 @@
     <script type="module" src="mastodon-post.js"></script>
   </head>
   <body>
-    <h2>General usage example</h2>
+    <template id="mastodon-post-template">
+      <dl>
+        <dt>Reposts</dt>
+        <dd data-key="reblogs_count"></dd>
+        <dt>Replies</dt>
+        <dd data-key="replies_count"></dd>
+        <dt>Favourites</dt>
+        <dd data-key="favourites_count"></dd>
+      </dl>
+    </template>
+
+    <h2>Custom template example</h2>
     <mastodon-post>
       <a href="https://mastodon.design/@DavidDarnes/109824258017750161">
         Discuss on Mastodon
