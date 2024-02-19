@@ -119,11 +119,11 @@ However you can customise the template by using a `<template>` element with an `
 
 Data is applied using a `data-key` data attribute. The value of this attribute corresponds to one of the following data points returned by the Mastodon API plus some pieces of data formed within the component itself:
 
-- content: The post content itself, as a HTML string "<p>Example content</p>"
-- `created_at`: The time of the post in UTC, e.g. "2023-02-07T15:53:07.042Z"
-- `edited_at`: The time of the post being last edited in UTC, e.g. "2023-02-08T15:53:07.042Z"
+- content: The post content itself, as a HTML string. E.g. `<p>Example content</p>`
+- `created_at`: The time of the post in UTC, e.g. `2023-02-07T15:53:07.042Z`
+- `edited_at`: The time of the post being last edited in UTC, e.g. `2023-02-08T15:53:07.042Z`
 - `favourites_count`: Favourite count
-- `hostname`: The Mastodon host site, e.g. "mastodon.social"
+- `hostname`: The Mastodon host site, e.g. `mastodon.social`
 - `id`: The ID of the post
 - `in_reply_to_account_id`: The ID of the account being replied to, if it's a reply
 - `in_reply_to_id`: The ID of the post being replied to, if it's a reply
