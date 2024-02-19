@@ -36,19 +36,23 @@ class MastodonPost extends HTMLElement {
 
     this.querySelectorAll("[data-key]").forEach(async (slot) => {
       const { key } = slot.dataset;
+      const value = data[key];
 
       if (key === "content") {
-        slot.innerHTML = data[key];
-      } else if (key === "url") {
-        slot.href = this.link;
+        slot.innerHTML = value;
+      } else if (typeof value === "string" && value.startsWith("http")) {
+        if (slot.localName === "a") slot.href = value;
+        if (slot.localName === "img") slot.src = value;
       } else {
-        slot.textContent = data[key];
+        slot.textContent = value;
       }
     });
   }
 
   get template() {
-    return document.getElementById(mastodonPostTemplate.id).content.cloneNode(true);
+    return document
+      .getElementById(mastodonPostTemplate.id)
+      .content.cloneNode(true);
   }
 
   get link() {
@@ -59,9 +63,10 @@ class MastodonPost extends HTMLElement {
     const url = new URL(this.link);
     const paths = url.pathname.split("/").filter((string) => string.length);
     return {
+      url: this.link,
       hostname: url.hostname,
       username: paths.find((path) => path.startsWith("@")),
-      postId: paths.find((path) => !path.startsWith("@"))
+      postId: paths.find((path) => !path.startsWith("@")),
     };
   }
 
