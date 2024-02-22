@@ -2,7 +2,7 @@
 
 A Web Component to display Mastodon posts and their metadata.
 
-**[Demo](https://daviddarnes.github.io/mastodon-post/demo.html)** | **[Custom template demo](https://daviddarnes.github.io/mastodon-post/demo-custom-template.html)**
+**[Demo](https://daviddarnes.github.io/mastodon-post/demo.html)** | **[Custom template demo](https://daviddarnes.github.io/mastodon-post/demo-custom-template.html)** | **[Further reading](https://darn.es/sample-input-web-component/)**
 
 ## Examples
 
