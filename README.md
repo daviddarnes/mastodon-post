@@ -34,6 +34,34 @@ Example using a custom template:
 </mastodon-post>
 ```
 
+Example using a more complex custom template:
+
+```html
+<script type="module" src="mastodon-post.js"></script>
+
+<template id="mastodon-post-template">
+  <dl>
+    <dt>Reposts</dt>
+    <dd data-key="reblogs_count"></dd>
+    <dt>Replies</dt>
+    <dd data-key="replies_count"></dd>
+    <dt>Favourites</dt>
+    <dd data-key="favourites_count"></dd>
+  </dl>
+  <a data-key="url">
+    View original post from <img alt="avatar" data-key="account.avatar" />
+    <strong data-key="account.display_name"></strong> on
+    <strong data-key="hostname"></strong>
+  </a>
+</template>
+
+<mastodon-post>
+  <a href="https://mastodon.design/@DavidDarnes/109824258017750161">
+    Discuss on Mastodon
+  </a>
+</mastodon-post>
+```
+
 ## Features
 
 This Web Component allows you to:
@@ -41,6 +69,7 @@ This Web Component allows you to:
 - Turn a regular Mastodon post link into a quoted Mastodon post
 - Surface the post metadata alongside the post, e.g. reply count, reblog count, favourite count
 - Use a custom template for all instances of the component on the page using a `data-key="name"` data attributes
+- Retrieve nested data using the `data-key` attribute and typical JavaScript key referencing, e.g. `data-key="account.display_name"` or `data-key="media_attachments[0]preview_url"`
 
 ## Installation
 
@@ -117,28 +146,27 @@ However you can customise the template by using a `<template>` element with an `
 </template>
 ```
 
-Data is applied using a `data-key` data attribute. The value of this attribute corresponds to one of the following data points returned by the Mastodon API plus some pieces of data formed within the component itself:
+Data is applied using a `data-key` data attribute. The value of this attribute should correspond to a data point within a [Mastodon public status API response](https://docs.joinmastodon.org/methods/statuses/). The official Mastodon documentation has [an example of a status response here](https://docs.joinmastodon.org/methods/statuses/#200-ok-1). The `data-key` attribute also allows you to target nested data using typical JavaScript dot notation:
 
-- content: The post content itself, as a HTML string. E.g. `<p>Example content</p>`
-- `created_at`: The time of the post in UTC, e.g. `2023-02-07T15:53:07.042Z`
-- `edited_at`: The time of the post being last edited in UTC, e.g. `2023-02-08T15:53:07.042Z`
-- `favourites_count`: Favourite count
-- `hostname`: The Mastodon host site, e.g. `mastodon.social`
-- `id`: The ID of the post
-- `in_reply_to_account_id`: The ID of the account being replied to, if it's a reply
-- `in_reply_to_id`: The ID of the post being replied to, if it's a reply
-- `language`: The language locale code
-- `postId`: The post ID
-- `reblogs_count`: The reblog or boost count
-- `replies_count`: The replies count
-- `sensitive`: If the post has been marked as sensitive, boolean
-- `spoiler_text`: The hidden spoiler text, if applied
-- `uri`: The post URI
-- `url`: The original post URL from the anchor in the component
-- `username`: The username, lifted from the original post URL
-- `visibility`: The visibility type
+```html
+<template id="mastodon-post-template">
+  <figure>
+    <blockquote data-key="content"></blockquote>
+    <figcaption>
+      <cite>
+        <a data-key="url">
+          View original post from
+          <img alt="avatar" data-key="account.avatar" />
+          <strong data-key="account.display_name"></strong> on
+          <strong data-key="hostname"></strong>
+        </a>
+      </cite>
+    </figcaption>
+  </figure>
+</template>
+```
 
-For `<a>` and `<img>` elements the value won't be applied to it's content if the string being returned starts with `http` and will be instead be applied to the `href` and `src` attributes respectively.
+_Note that for `<a>` and `<img>` elements the value won't be applied to it's content if the string being returned starts with `http` and instead will be applied to the `href` and `src` attributes respectively._
 
 Check out the [custom template demo](https://daviddarnes.github.io/mastodon-post/demo-custom-template.html) as well as [the source code](https://github.com/daviddarnes/mastodon-post/blob/main/demo-custom-template.html) for reference.
 

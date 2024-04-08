@@ -36,7 +36,7 @@ class MastodonPost extends HTMLElement {
 
     this.querySelectorAll("[data-key]").forEach(async (slot) => {
       const { key } = slot.dataset;
-      const value = data[key];
+      const value = this.getValue(key, data);
 
       if (key === "content") {
         slot.innerHTML = value;
@@ -47,6 +47,27 @@ class MastodonPost extends HTMLElement {
         slot.textContent = value;
       }
     });
+  }
+
+  handleKey(object, key) {
+    const parsedKeyInt = parseFloat(key);
+
+    if (Number.isNaN(parsedKeyInt)) {
+      return object[key];
+    }
+
+    return object[parsedKeyInt];
+  }
+
+  getValue(string, data) {
+    let keys = string.split(/\.|\[|\]/g);
+    keys = keys.filter((string) => string.length);
+
+    const value = keys.reduce(
+      (object, key) => this.handleKey(object, key),
+      data
+    );
+    return value;
   }
 
   get template() {

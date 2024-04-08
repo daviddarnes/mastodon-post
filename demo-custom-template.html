@@ -11,6 +11,10 @@
         font-family: system-ui;
       }
 
+      mastodon-post:defined a:not([data-key]) {
+        display: none;
+      }
+
       mastodon-post dl {
         display: flex;
         gap: 1rem;
@@ -27,6 +31,12 @@
       mastodon-post dd {
         margin-inline-start: 0;
       }
+
+      mastodon-post img {
+        max-inline-size: 1.25rem;
+        vertical-align: middle;
+        border-radius: 100%;
+      }
     </style>
 
     <script type="module" src="mastodon-post.js"></script>
@@ -41,6 +51,11 @@
         <dt>Favourites</dt>
         <dd data-key="favourites_count"></dd>
       </dl>
+      <a data-key="url">
+        View original post from <img alt="avatar" data-key="account.avatar" />
+        <strong data-key="account.display_name"></strong> on
+        <strong data-key="hostname"></strong>
+      </a>
     </template>
 
     <h2>Custom template example</h2>
