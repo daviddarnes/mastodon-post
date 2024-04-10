@@ -34,19 +34,23 @@ class MastodonPost extends HTMLElement {
 
     const data = { ...(await this.data), ...this.linkData };
 
-    this.querySelectorAll("[data-key]").forEach(async (slot) => {
-      const { key } = slot.dataset;
-      const value = this.getValue(key, data);
-
-      if (key === "content") {
-        slot.innerHTML = value;
-      } else if (typeof value === "string" && value.startsWith("http")) {
-        if (slot.localName === "a") slot.href = value;
-        if (slot.localName === "img") slot.src = value;
-      } else {
-        slot.textContent = value;
-      }
+    this.slots.forEach((slot) => {
+      slot.dataset.key.split(",").forEach((keyItem) => {
+        const value = this.getValue(keyItem, data);
+        this.populateSlot(slot, keyItem, value);
+      });
     });
+  }
+
+  populateSlot(slot, keyItem, value) {
+    if (keyItem === "content") {
+      slot.innerHTML = value;
+    } else if (typeof value == "string" && value.startsWith("http")) {
+      if (slot.localName === "img") slot.src = value;
+      if (slot.localName === "a") slot.href = value;
+    } else {
+      slot.textContent = value;
+    }
   }
 
   handleKey(object, key) {
@@ -60,7 +64,7 @@ class MastodonPost extends HTMLElement {
   }
 
   getValue(string, data) {
-    let keys = string.split(/\.|\[|\]/g);
+    let keys = string.trim().split(/\.|\[|\]/g);
     keys = keys.filter((string) => string.length);
 
     const value = keys.reduce(
@@ -76,6 +80,10 @@ class MastodonPost extends HTMLElement {
       .content.cloneNode(true);
   }
 
+  get slots() {
+    return this.querySelectorAll("[data-key]");
+  }
+
   get link() {
     return this.querySelector("a").href;
   }
@@ -87,7 +95,7 @@ class MastodonPost extends HTMLElement {
       url: this.link,
       hostname: url.hostname,
       username: paths.find((path) => path.startsWith("@")),
-      postId: paths.find((path) => !path.startsWith("@")),
+      postId: paths.find((path) => !path.startsWith("@"))
     };
   }
 
