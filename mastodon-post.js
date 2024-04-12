@@ -78,7 +78,9 @@ class MastodonPost extends HTMLElement {
 
   get template() {
     return document
-      .getElementById(`${this.localName}-template`)
+      .getElementById(
+        this.getAttribute("template") || `${this.localName}-template`
+      )
       .content.cloneNode(true);
   }
 
