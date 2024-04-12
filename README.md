@@ -69,6 +69,7 @@ This Web Component allows you to:
 - Turn a regular Mastodon post link into a quoted Mastodon post
 - Surface the post metadata alongside the post, e.g. reply count, reblog count, favourite count
 - Use a custom template for all instances of the component on the page using a `data-key="name"` data attributes
+- Use a custom template for specific instances using the `template` attribute
 - Retrieve nested data using the `data-key` attribute and typical JavaScript key referencing, e.g. `data-key="account.display_name"` or `data-key="media_attachments[0]preview_url"`
 
 ## Installation
@@ -144,6 +145,20 @@ However you can customise the template by using a `<template>` element with an `
     <dd data-key="favourites_count"></dd>
   </dl>
 </template>
+```
+
+You can also use different templates on the same page by using the `template` attribute to target `<template>` elements with a specific `id`:
+
+```html
+<template id="custom-template">
+  <a data-key="content, url"></a>
+</template>
+
+<mastodon-post template="custom-template">
+  <a href="https://mastodon.design/@DavidDarnes/109824258017750161">
+    Discuss on Mastodon
+  </a>
+</mastodon-post>
 ```
 
 Data is applied using a `data-key` data attribute. The value of this attribute should correspond to a data point within a [Mastodon public status API response](https://docs.joinmastodon.org/methods/statuses/). The official Mastodon documentation has [an example of a status response here](https://docs.joinmastodon.org/methods/statuses/#200-ok-1). The `data-key` attribute also allows you to target nested data using typical JavaScript dot notation:
