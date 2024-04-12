@@ -37,15 +37,17 @@ class MastodonPost extends HTMLElement {
     this.slots.forEach((slot) => {
       slot.dataset.key.split(",").forEach((keyItem) => {
         const value = this.getValue(keyItem, data);
-        this.populateSlot(slot, keyItem, value);
+        if (keyItem === "content") {
+          slot.innerHTML = value;
+        } else {
+          this.populateSlot(slot, value);
+        }
       });
     });
   }
 
-  populateSlot(slot, keyItem, value) {
-    if (keyItem === "content") {
-      slot.innerHTML = value;
-    } else if (typeof value == "string" && value.startsWith("http")) {
+  populateSlot(slot, value) {
+    if (typeof value == "string" && value.startsWith("http")) {
       if (slot.localName === "img") slot.src = value;
       if (slot.localName === "a") slot.href = value;
     } else {
@@ -76,7 +78,7 @@ class MastodonPost extends HTMLElement {
 
   get template() {
     return document
-      .getElementById(mastodonPostTemplate.id)
+      .getElementById(`${this.localName}-template`)
       .content.cloneNode(true);
   }
 
